@@ -12,6 +12,9 @@ import inquiryRoutes from "./routes/inquiry.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
 import reviewRoutes from "./routes/review.routes.js";
 import dotenv from "dotenv";
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./config/swagger.js";
+
 dotenv.config();
 
 const app = express();
@@ -29,6 +32,8 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/reviews", reviewRoutes);
 
 app.use(errorHandler);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.listen(process.env.PORT, () =>
   console.log(`Server running on port ${process.env.PORT}`)
